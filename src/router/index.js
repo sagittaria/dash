@@ -79,33 +79,33 @@ export default new Router({
 
 export const asyncRouterMap = [
   {
-    path: '/example',
+    path: '/blog',
     component: Layout,
-    redirect: '/example/list',
-    name: 'Example',
+    redirect: '/blog/list',
+    name: 'Blog',
     meta: {
-      title: 'example',
+      title: 'blogManage',
       icon: 'example'
     },
     children: [
       {
         path: 'create',
-        component: () => import('@/views/example/create'),
-        name: 'CreateArticle',
-        meta: { title: 'createArticle', icon: 'edit' }
+        component: () => import('@/views/blog/create'),
+        name: 'CreatePost',
+        meta: { title: 'createPost', icon: 'edit' }
       },
       {
         path: 'edit/:id(\\d+)',
-        component: () => import('@/views/example/edit'),
-        name: 'EditArticle',
-        meta: { title: 'editArticle', noCache: true },
+        component: () => import('@/views/blog/edit'),
+        name: 'EditPost',
+        meta: { title: 'editPost', noCache: true },
         hidden: true
       },
       {
         path: 'list',
-        component: () => import('@/views/example/list'),
-        name: 'ArticleList',
-        meta: { title: 'articleList', icon: 'list' }
+        component: () => import('@/views/blog/list'),
+        name: 'PostList',
+        meta: { title: 'postList', icon: 'list' }
       }
     ]
   },
