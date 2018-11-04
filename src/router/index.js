@@ -89,6 +89,12 @@ export const asyncRouterMap = [
     },
     children: [
       {
+        path: 'list',
+        component: () => import('@/views/blog/list'),
+        name: 'PostList',
+        meta: { title: 'postList', icon: 'list' }
+      },
+      {
         path: 'create',
         component: () => import('@/views/blog/create'),
         name: 'CreatePost',
@@ -100,12 +106,6 @@ export const asyncRouterMap = [
         name: 'EditPost',
         meta: { title: 'editPost', noCache: true },
         hidden: true
-      },
-      {
-        path: 'list',
-        component: () => import('@/views/blog/list'),
-        name: 'PostList',
-        meta: { title: 'postList', icon: 'list' }
       }
     ]
   },
