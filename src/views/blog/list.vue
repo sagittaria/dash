@@ -10,7 +10,7 @@
       </el-table-column>
       <el-table-column label="updated">
         <template slot-scope="scope">
-          <span>{{ scope.row.updatedAt }}</span>
+          <span>{{ scope.row.updatedAt|formatLocalTime }}</span>
         </template>
       </el-table-column>
       <el-table-column label="operate">
@@ -31,9 +31,13 @@
 
 <script>
 import { fetchList } from '@/api/post'
+import { formatLocalTime } from '@/filters'
 
 export default {
   name: 'PostList',
+  filters: {
+    formatLocalTime
+  },
   data() {
     return {
       postList: [],

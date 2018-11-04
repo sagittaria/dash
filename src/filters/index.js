@@ -1,3 +1,5 @@
+import moment from 'moment'
+
 // set function parseTime,formatTime to filter
 export { parseTime, formatTime } from '@/utils'
 
@@ -39,4 +41,8 @@ export function numberFormatter(num, digits) {
 
 export function toThousandFilter(num) {
   return (+num || 0).toString().replace(/^-?\d+/g, m => m.replace(/(?=(?!\b)(\d{3})+$)/g, ','))
+}
+
+export function formatLocalTime(d) {
+  return moment(d).utcOffset(moment().utcOffset()).format('YYYY-MM-DD HH:mm:ss')
 }
