@@ -1,6 +1,6 @@
 <template>
   <div style="padding: 14px;">
-    <el-table :data="postList">
+    <el-table v-loading="isLoading" :data="postList">
       <el-table-column prop="category" label="category"/>
       <el-table-column prop="title" label="title"/>
       <el-table-column label="tags">
@@ -45,7 +45,8 @@ export default {
       listQuery: {
         page: 1,
         size: 10
-      }
+      },
+      isLoading: true
     }
   },
   created() {
@@ -53,9 +54,11 @@ export default {
   },
   methods: {
     getPosts() {
+      this.isLoading = true
       fetchList(this.listQuery).then(data => {
         this.postList = data.list
         this.total = data.total
+        this.isLoading = false
       })
     },
     handleCurrentChange(page) {
