@@ -103,7 +103,9 @@ export default {
 .simplemde-container>>>.editor-statusbar {
   display: none;
 }
-
+.simplemde-container>>>.CodeMirror a {
+  color: #1890ff;
+}
 .simplemde-container>>>.CodeMirror .CodeMirror-code .cm-link {
   color: #1890ff;
 }
