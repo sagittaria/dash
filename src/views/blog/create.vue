@@ -8,15 +8,15 @@
             <el-option label="tech" value="tech"/>
             <el-option label="other" value="other"/>
           </el-select>
-          <el-input v-model="post.title"/>
-          <el-button type="primary" size="mini" plain>SAVE</el-button>
+          <el-input v-model="post.title" style="margin-left: 5px;"/>
+          <el-button type="primary" style="margin-left: 5px;" size="mini" plain>SAVE</el-button>
         </div>
         <div class="tags-container">
           <el-tag
             v-for="tag in dynamicTags"
             :key="tag"
             type="info"
-            size="small"
+            size="medium"
             closable
             @close="handleClose(tag)">
             {{ tag }}
