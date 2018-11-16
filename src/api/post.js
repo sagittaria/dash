@@ -8,3 +8,10 @@ export function fetchList(query) {
     params: query
   })
 }
+
+export function fetchById(id) {
+  return request({
+    url: url.post + id,
+    method: 'get'
+  })
+}

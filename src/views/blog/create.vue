@@ -13,7 +13,7 @@
         </div>
         <div class="tags-container">
           <el-tag
-            v-for="tag in dynamicTags"
+            v-for="tag in post.tags"
             :key="tag"
             type="info"
             size="medium"
@@ -39,6 +39,7 @@
 
 <script>
 import MarkdownEditor from '@/components/MarkdownEditor'
+import { fetchById } from '@/api/post'
 
 export default {
   name: 'CreatePost',
@@ -51,14 +52,25 @@ export default {
         category: 'other',
         tags: []
       },
-      dynamicTags: [],
       inputVisible: false,
       inputValue: ''
     }
   },
+  beforeRouteEnter(to, from, next) {
+    next(vm => {
+      vm.getPost()
+    })
+  },
+  beforeRouteLeave(to, from, next) {
+    this.post.title = ''
+    this.post.body = ''
+    this.post.category = 'other'
+    this.post.tags = []
+    next()
+  },
   methods: {
     handleClose(tag) {
-      this.dynamicTags.splice(this.dynamicTags.indexOf(tag), 1)
+      this.post.tags.splice(this.post.tags.indexOf(tag), 1)
     },
 
     showInput() {
@@ -71,10 +83,21 @@ export default {
     handleInputConfirm() {
       const inputValue = this.inputValue
       if (inputValue) {
-        this.dynamicTags.push(inputValue)
+        this.post.tags.push(inputValue)
       }
       this.inputVisible = false
       this.inputValue = ''
+    },
+
+    getPost() {
+      const self = this
+      const id = self.$route.params.id
+      if (id) {
+        fetchById(id).then(res => {
+          // console.log(res)
+          self.post = res.post
+        })
+      }
     }
   }
 }

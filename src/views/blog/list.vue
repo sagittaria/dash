@@ -64,6 +64,9 @@ export default {
     handleCurrentChange(page) {
       this.listQuery.page = page
       this.getPosts()
+    },
+    edit(id) {
+      this.$router.push({ name: 'EditPost', params: { id }})
     }
   }
 }
