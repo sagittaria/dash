@@ -94,6 +94,7 @@ export default {
 
 .simplemde-container>>>.CodeMirror-scroll {
   min-height: 150px;
+  max-height: calc(100vh - 34px - 50px - 46px - 10px - 100px);
 }
 
 .simplemde-container>>>.CodeMirror-code {
