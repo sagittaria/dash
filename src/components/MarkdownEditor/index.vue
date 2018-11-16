@@ -123,4 +123,7 @@ export default {
 .simplemde-container >>> .CodeMirror-fullscreen {
   z-index: 1003;
 }
+.simplemde-container >>> .CodeMirror-fullscreen .CodeMirror-scroll{
+  max-height: none;
+} /* 全屏时覆盖掉第97行max-height定义的值 */
 </style>
