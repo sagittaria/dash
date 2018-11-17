@@ -8,7 +8,7 @@
           <el-tag v-for="t in scope.row.tags" :key="t" type="warning" size="mini" style="margin-right: 6px;">{{ t }}</el-tag>
         </template>
       </el-table-column>
-      <el-table-column label="updated">
+      <el-table-column label="updated@">
         <template slot-scope="scope">
           <span>{{ scope.row.updatedAt|formatLocalTime }}</span>
         </template>

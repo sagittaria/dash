@@ -31,6 +31,9 @@
           />
           <el-button v-else class="add-tag-btn" type="success" plain @click="showInput">+tag</el-button>
         </div>
+        <div v-if="$route.params.id" class="updatedAt">
+          updated @ {{ post.updatedAt|formatLocalTime }}
+        </div>
       </div>
       <markdown-editor id="contentEditor" ref="contentEditor" v-model="post.body" :height="300" :z-index="20"/>
     </el-form>
@@ -40,17 +43,20 @@
 <script>
 import MarkdownEditor from '@/components/MarkdownEditor'
 import { fetchById, save } from '@/api/post'
+import { formatLocalTime } from '@/filters'
 
 export default {
   name: 'CreatePost',
   components: { MarkdownEditor },
+  filters: { formatLocalTime },
   data() {
     return {
       post: {
         title: '',
         body: '',
         category: 'other',
-        tags: []
+        tags: [],
+        updatedAt: ''
       },
       inputVisible: false,
       inputValue: ''
@@ -96,6 +102,7 @@ export default {
     savePost() {
       const self = this
       const id = self.$route.params.id
+      self.post.updatedAt = new Date()
       save(self.post, id || '').then(() => {
         self.$message.success(id ? 'updated!' : 'created!')
         self.$router.push({ name: 'PostList' })
@@ -134,5 +141,11 @@ export default {
   height: 28px;
   padding: 3px 8px;
   margin-left: 10px;
+}
+.updatedAt{
+  position: absolute;
+  right: 20px;
+  color: #ccc;
+  font-size: 14px;
 }
 </style>
