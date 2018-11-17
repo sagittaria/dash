@@ -9,7 +9,7 @@
             <el-option label="other" value="other"/>
           </el-select>
           <el-input v-model="post.title" style="margin-left: 5px;"/>
-          <el-button type="primary" style="margin-left: 5px;" size="mini" plain>SAVE</el-button>
+          <el-button type="primary" style="margin-left: 5px;" size="mini" plain @click="savePost">SAVE</el-button>
         </div>
         <div class="tags-container">
           <el-tag
@@ -39,7 +39,7 @@
 
 <script>
 import MarkdownEditor from '@/components/MarkdownEditor'
-import { fetchById } from '@/api/post'
+import { fetchById, save } from '@/api/post'
 
 export default {
   name: 'CreatePost',
@@ -60,13 +60,6 @@ export default {
     next(vm => {
       vm.getPost()
     })
-  },
-  beforeRouteLeave(to, from, next) {
-    this.post.title = ''
-    this.post.body = ''
-    this.post.category = 'other'
-    this.post.tags = []
-    next()
   },
   methods: {
     handleClose(tag) {
@@ -98,6 +91,15 @@ export default {
           self.post = res.post
         })
       }
+    },
+
+    savePost() {
+      const self = this
+      const id = self.$route.params.id
+      save(self.post, id || '').then(() => {
+        self.$message.success(id ? 'updated!' : 'created!')
+        self.$router.push({ name: 'PostList' })
+      })
     }
   }
 }

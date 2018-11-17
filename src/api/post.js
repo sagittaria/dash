@@ -15,3 +15,11 @@ export function fetchById(id) {
     method: 'get'
   })
 }
+
+export function save(data, id) {
+  return request({
+    url: url.post + id,
+    method: id ? 'put' : 'post',
+    data
+  })
+}

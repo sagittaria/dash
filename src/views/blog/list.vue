@@ -49,8 +49,10 @@ export default {
       isLoading: true
     }
   },
-  created() {
-    this.getPosts()
+  beforeRouteEnter(to, from, next) {
+    next(vm => {
+      vm.getPosts()
+    })
   },
   methods: {
     getPosts() {
