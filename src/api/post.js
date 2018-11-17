@@ -23,3 +23,10 @@ export function save(data, id) {
     data
   })
 }
+
+export function del(id) {
+  return request({
+    url: url.post + id,
+    method: 'delete'
+  })
+}

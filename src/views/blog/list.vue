@@ -16,7 +16,7 @@
       <el-table-column label="operate">
         <template slot-scope="scope">
           <el-button type="danger" icon="el-icon-edit-outline" size="mini" circle plain @click="edit(scope.row._id)"/>
-          <el-button type="info" icon="el-icon-delete" size="mini" circle plain @click="del(scope.row._id)"/>
+          <el-button type="info" icon="el-icon-delete" size="mini" circle plain @click="drop(scope.row._id)"/>
         </template>
       </el-table-column>
     </el-table>
@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import { fetchList } from '@/api/post'
+import { fetchList, del } from '@/api/post'
 import { formatLocalTime } from '@/filters'
 
 export default {
@@ -69,6 +69,14 @@ export default {
     },
     edit(id) {
       this.$router.push({ name: 'EditPost', params: { id }})
+    },
+    drop(id) {
+      this.$confirm('sir, permission to delete', 'warning').then(() => {
+        del(id)
+      }).then(() => {
+        this.$message.success('deleted!')
+        this.getPosts()
+      }).catch(err => { console.log(err.message) })
     }
   }
 }
