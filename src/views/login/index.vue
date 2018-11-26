@@ -37,6 +37,12 @@
         </span>
       </el-form-item>
 
+      <el-form-item>
+        <div id="captcha-wrapper">
+          <div id="captcha-is-loading" style="padding-left: 15px;">Loading please wait...</div>
+        </div>
+      </el-form-item>
+
       <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleLogin">{{ $t('login.logIn') }}</el-button>
 
       <div class="tips">
@@ -64,8 +70,10 @@
 
 <script>
 import { isvalidUsername } from '@/utils/validate'
+import '@/utils/gt'
 import LangSelect from '@/components/LangSelect'
 import SocialSign from './socialsignin'
+import { getCaptcha } from '@/api/captcha'
 
 export default {
   name: 'Login',
@@ -111,6 +119,24 @@ export default {
   },
   created() {
     // window.addEventListener('hashchange', this.afterQRScan)
+  },
+  mounted() {
+    getCaptcha.then(res => {
+      initGeetest({ // eslint-disable-line
+        gt: res.gt,
+        challenge: res.challenge,
+        offline: !res.success,
+        new_captcha: true
+      }, function(captchaObj) {
+        // 这里可以调用验证实例 captchaObj 的实例方法
+        captchaObj.appendTo('#captcha-wrapper')
+        captchaObj.onReady(function() {
+          document.querySelector('#captcha-is-loading').style.display = 'none'
+        })
+      })
+    }).catch(err => {
+      console.log(err.message)
+    })
   },
   destroyed() {
     // window.removeEventListener('hashchange', this.afterQRScan)
