@@ -105,7 +105,8 @@ export default {
       passwordType: 'password',
       loading: false,
       showDialog: false,
-      redirect: undefined
+      redirect: undefined,
+      captchaObj: null
     }
   },
   watch: {
@@ -121,21 +122,22 @@ export default {
     // window.addEventListener('hashchange', this.afterQRScan)
   },
   mounted() {
-    getCaptcha.then(res => {
+    const self = this
+    getCaptcha().then(res => {
       initGeetest({ // eslint-disable-line
-        gt: res.gt,
-        challenge: res.challenge,
-        offline: !res.success,
-        new_captcha: true
+        gt: res.data.gt,
+        challenge: res.data.challenge,
+        offline: !res.data.success,
+        new_captcha: true,
+        width: '100%'
       }, function(captchaObj) {
         // 这里可以调用验证实例 captchaObj 的实例方法
         captchaObj.appendTo('#captcha-wrapper')
         captchaObj.onReady(function() {
           document.querySelector('#captcha-is-loading').style.display = 'none'
         })
+        self.captchaObj = captchaObj
       })
-    }).catch(err => {
-      console.log(err.message)
     })
   },
   destroyed() {
@@ -150,6 +152,14 @@ export default {
       }
     },
     handleLogin() {
+      var result = this.captchaObj.getValidate()
+      if (!result) {
+        return this.$message.warning('请完成验证')
+      } // 把下面这些东西一起带着去登陆
+      this.loginForm.geetest_challenge = result.geetest_challenge
+      this.loginForm.geetest_validate = result.geetest_validate
+      this.loginForm.geetest_seccode = result.geetest_seccode
+
       this.$refs.loginForm.validate(valid => {
         if (valid) {
           this.loading = true

@@ -1,9 +1,12 @@
 import request from '@/utils/request'
 
-export function loginByUsername(username, password) {
+export function loginByUsername(username, password, geetest_challenge, geetest_validate, geetest_seccode) {
   const data = {
     username,
-    password
+    password,
+    geetest_challenge,
+    geetest_validate,
+    geetest_seccode
   }
   return request({
     // url: '/login/login',
