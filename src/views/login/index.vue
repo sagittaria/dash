@@ -122,28 +122,31 @@ export default {
     // window.addEventListener('hashchange', this.afterQRScan)
   },
   mounted() {
-    const self = this
-    getCaptcha().then(res => {
-      initGeetest({ // eslint-disable-line
-        gt: res.data.gt,
-        challenge: res.data.challenge,
-        offline: !res.data.success,
-        new_captcha: true,
-        width: '100%'
-      }, function(captchaObj) {
-        // 这里可以调用验证实例 captchaObj 的实例方法
-        captchaObj.appendTo('#captcha-wrapper')
-        captchaObj.onReady(function() {
-          document.querySelector('#captcha-is-loading').style.display = 'none'
-        })
-        self.captchaObj = captchaObj
-      })
-    })
+    this.initCaptcha()
   },
   destroyed() {
     // window.removeEventListener('hashchange', this.afterQRScan)
   },
   methods: {
+    initCaptcha() {
+      const self = this
+      getCaptcha().then(res => {
+        initGeetest({ // eslint-disable-line
+          gt: res.data.gt,
+          challenge: res.data.challenge,
+          offline: !res.data.success,
+          new_captcha: true,
+          width: '100%'
+        }, function(captchaObj) {
+          // 这里可以调用验证实例 captchaObj 的实例方法
+          captchaObj.appendTo('#captcha-wrapper')
+          captchaObj.onReady(function() {
+            document.querySelector('#captcha-is-loading').style.display = 'none'
+          })
+          self.captchaObj = captchaObj
+        })
+      })
+    },
     showPwd() {
       if (this.passwordType === 'password') {
         this.passwordType = ''
@@ -167,6 +170,7 @@ export default {
             this.loading = false
             this.$router.push({ path: this.redirect || '/' })
           }).catch(() => {
+            this.captchaObj.reset()
             this.loading = false
           })
         } else {
