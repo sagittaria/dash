@@ -155,6 +155,9 @@ export default {
       }
     },
     handleLogin() {
+      if (!this.captchaObj) {
+        return this.$message.warning('wait a moment...')
+      }
       var result = this.captchaObj.getValidate()
       if (!result) {
         return this.$message.warning('请完成验证')
