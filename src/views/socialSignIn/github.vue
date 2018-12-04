@@ -1,5 +1,12 @@
+<template>
+  <div>
+    loading...
+  </div>
+</template>
 <script>
-import axios from 'axios'
+import request from '@/utils/request'
+import { setToken } from '@/utils/auth'
+
 export default {
   created() {
     const code = this.$route.query.code
@@ -7,12 +14,20 @@ export default {
   },
   methods: {
     handleGithubSignIn(code) {
-      console.log(code)
-      axios.get('/github/signIn', { params: { code }}).then(resp => {
-        console.log(resp)
+      request({
+        url: '/github/signIn',
+        method: 'get',
+        params: { code }
+      }).then(data => {
+        console.log(data)
+        this.$store.commit('SET_TOKEN', data.token)
+        setToken(data.token)
+        this.$router.push('/')
+      }).catch(err => {
+        console.log(err)
+        this.$router.push('/login')
       })
     }
-  },
-  render: h => h() // suppress warning
+  }
 }
 </script>

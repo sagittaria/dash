@@ -36,12 +36,12 @@ service.interceptors.response.use(
         type: 'error',
         duration: 5 * 1000
       })
-      return Promise.reject() // 错误提示已交由Message给出，所以Promise.reject不再传入参数
+      return Promise.reject(res.message) // 要传的，不然页面上的catch(err=>{})中err(通常是业务层面错误)是undefined
     } else {
       return response.data
     }
   },
-  error => {
+  error => { // 程序层面错误
     console.log('' + error) // for debug
     Notification.error({
       title: 'Error!',
