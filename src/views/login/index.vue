@@ -45,16 +45,17 @@
 
       <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleLogin">{{ $t('login.logIn') }}</el-button>
 
-      <div class="tips">
-        <span>{{ $t('login.username') }} : admin</span>
-        <span>{{ $t('login.password') }} : {{ $t('login.any') }}</span>
+      <div class="social-sign-in">
+        <div class="icon-container" style="background-color: #000" @click="redirectToGithubSignIn">
+          <svg-icon icon-class="github" class="icon"/>
+        </div>
+        <div class="icon-container" style="background-color: #8ada53">
+          <svg-icon icon-class="wechat" class="icon"/>
+        </div>
+        <div class="icon-container" style="background-color: #6BA2D6">
+          <svg-icon icon-class="qq" class="icon"/>
+        </div>
       </div>
-      <div class="tips">
-        <span style="margin-right:18px;">{{ $t('login.username') }} : editor</span>
-        <span>{{ $t('login.password') }} : {{ $t('login.any') }}</span>
-      </div>
-
-      <el-button class="thirdparty-button" type="primary" @click="showDialog=true">{{ $t('login.thirdparty') }}</el-button>
     </el-form>
 
     <el-dialog :title="$t('login.thirdparty')" :visible.sync="showDialog" append-to-body>
@@ -71,6 +72,7 @@
 <script>
 import { isvalidUsername } from '@/utils/validate'
 import '@/utils/gt'
+import { GithubAuthRedirect } from '@/github'
 import LangSelect from '@/components/LangSelect'
 import SocialSign from './socialsignin'
 import { getCaptcha } from '@/api/captcha'
@@ -128,6 +130,9 @@ export default {
     // window.removeEventListener('hashchange', this.afterQRScan)
   },
   methods: {
+    redirectToGithubSignIn() {
+      window.location = GithubAuthRedirect
+    },
     initCaptcha() {
       const self = this
       getCaptcha().then(res => {
@@ -318,4 +323,25 @@ $light_gray:#eee;
     bottom: 28px;
   }
 }
+</style>
+
+<style scoped>
+  .social-sign-in{
+    text-align: right;
+  }
+  .icon-container{
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    border-radius: 4px;
+    border: 1px solid #fff;
+    cursor: pointer;
+  }
+  .icon{
+    color: #fff;
+    font-size: 24px;
+    margin-top: 8px;
+  }
 </style>

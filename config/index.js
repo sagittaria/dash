@@ -14,6 +14,11 @@ module.exports = {
         target: 'http://localhost:9527/',
         changeOrigin: true,
         secure: false
+      },
+      '/github': {
+        target: 'http://localhost:9527/',
+        changeOrigin: true,
+        secure: false
       }
     },
 

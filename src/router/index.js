@@ -42,6 +42,11 @@ export const constantRouterMap = [
     hidden: true
   },
   {
+    path: '/socialSignIn/github',
+    component: () => import('@/views/socialSignIn/github'),
+    hidden: true
+  },
+  {
     path: '/auth-redirect',
     component: () => import('@/views/login/authredirect'),
     hidden: true
@@ -72,7 +77,7 @@ export const constantRouterMap = [
 ]
 
 export default new Router({
-  // mode: 'history', // require service support
+  mode: 'history', // require service support
   scrollBehavior: () => ({ y: 0 }),
   routes: constantRouterMap
 })
