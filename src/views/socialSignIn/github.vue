@@ -10,7 +10,7 @@ import request from '@/utils/request'
 import { setToken } from '@/utils/auth'
 
 export default {
-  created() {
+  mounted() {
     const code = this.$route.query.code
     this.handleGithubSignIn(code)
   },
