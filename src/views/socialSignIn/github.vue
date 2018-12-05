@@ -1,7 +1,9 @@
 <template>
-  <div style="height:calc(100vh);background-color: #2d3a4b;text-align: center">
-    <div style="color:white;font-size:2em;padding-top:40px;">
-      <svg-icon icon-class="loading-bars"/>Loading<svg-icon icon-class="loading-bars"/>
+  <div
+    style="height: calc(100vh);width: calc(100vw);background-color: #2d3a4b;
+  display: flex;justify-content: center;flex-direction: column">
+    <div style="display: flex;justify-content: center">
+      <svg-icon icon-class="loading-bars" style="font-size:60px;"/>
     </div>
   </div>
 </template>

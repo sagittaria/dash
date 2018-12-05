@@ -65,7 +65,14 @@
       <br>
       <social-sign />
     </el-dialog>
-
+    <div
+      v-show="loading"
+      style="position:fixed; height: calc(100vh);width: calc(100vw);background-color: #2d3a4b55;
+      display: flex;justify-content: center;flex-direction: column">
+      <div style="display: flex;justify-content: center">
+        <svg-icon icon-class="loading-bars" style="font-size:60px;"/>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -131,6 +138,7 @@ export default {
   },
   methods: {
     redirectToGithubSignIn() {
+      this.loading = true
       window.location = GithubAuthRedirect
     },
     initCaptcha() {
