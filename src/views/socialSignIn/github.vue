@@ -1,10 +1,9 @@
 <template>
   <div
-    style="height: calc(100vh);width: calc(100vw);background-color: #2d3a4b;
-  display: flex;justify-content: center;flex-direction: column">
-    <div style="display: flex;justify-content: center">
-      <svg-icon icon-class="loading-bars" style="font-size:60px;"/>
-    </div>
+    style="background-color: #2d3a4b;
+  height: calc(100vh);width: calc(100vw);
+  display: flex;justify-content: center;align-items: center">
+    <svg-icon icon-class="loading-bars" style="font-size:60px;"/>
   </div>
 </template>
 <script>
