@@ -1,6 +1,6 @@
 const config = {}
 config.url = 'https://github.com/login/oauth/authorize'
-config.client_id = '39401b2e175bfa888870'
+config.client_id = process.env.CLIENT_ID
 config.scope = ['user']
 
 let GithubAuthRedirect = config.url
