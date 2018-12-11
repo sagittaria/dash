@@ -58,13 +58,6 @@
       </div>
     </el-form>
 
-    <el-dialog :title="$t('login.thirdparty')" :visible.sync="showDialog" append-to-body>
-      {{ $t('login.thirdpartyTips') }}
-      <br>
-      <br>
-      <br>
-      <social-sign />
-    </el-dialog>
     <div
       v-show="loading"
       style="position:fixed; height: calc(100vh);width: calc(100vw);background-color: #2d3a4b55;
@@ -75,20 +68,18 @@
 </template>
 
 <script>
-import { isvalidUsername } from '@/utils/validate'
 import '@/utils/gt'
 import { GithubAuthRedirect } from '@/github'
 import LangSelect from '@/components/LangSelect'
-import SocialSign from './socialsignin'
 import { getCaptcha } from '@/api/captcha'
 
 export default {
   name: 'Login',
-  components: { LangSelect, SocialSign },
+  components: { LangSelect },
   data() {
     const validateUsername = (rule, value, callback) => {
-      if (!isvalidUsername(value)) {
-        callback(new Error('Please enter the correct user name'))
+      if (value.length < 6) {
+        callback(new Error('The username can not be less than 6 digits'))
       } else {
         callback()
       }

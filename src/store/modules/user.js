@@ -69,6 +69,7 @@ const user = {
 
           if (data.roles && data.roles.length > 0) { // 验证返回的roles是否是一个非空数组
             commit('SET_ROLES', data.roles)
+            commit('SET_AVATAR', 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif')
           } else {
             reject('getInfo: roles must be a non-null array !')
           }
