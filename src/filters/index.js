@@ -46,3 +46,9 @@ export function toThousandFilter(num) {
 export function formatLocalTime(d) {
   return moment(d).utcOffset(moment().utcOffset()).format('YYYY-MM-DD HH:mm:ss')
 }
+
+export function objectId2LocalTime(_id) {
+  const ts = parseInt(_id.substr(0, 8), 16) * 1000
+  const createdAt = new Date(ts)
+  return formatLocalTime(createdAt)
+}

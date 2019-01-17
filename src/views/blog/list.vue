@@ -8,6 +8,11 @@
           <el-tag v-for="t in scope.row.tags" :key="t" type="warning" size="mini" style="margin-right: 6px;">{{ t }}</el-tag>
         </template>
       </el-table-column>
+      <el-table-column label="published@">
+        <template slot-scope="scope">
+          <span>{{ scope.row._id|objectId2LocalTime }}</span>
+        </template>
+      </el-table-column>
       <el-table-column label="updated@">
         <template slot-scope="scope">
           <span>{{ scope.row.updatedAt|formatLocalTime }}</span>
@@ -31,12 +36,13 @@
 
 <script>
 import { fetchList, del } from '@/api/post'
-import { formatLocalTime } from '@/filters'
+import { formatLocalTime, objectId2LocalTime } from '@/filters'
 
 export default {
   name: 'PostList',
   filters: {
-    formatLocalTime
+    formatLocalTime,
+    objectId2LocalTime
   },
   data() {
     return {
