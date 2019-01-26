@@ -32,11 +32,11 @@ echo "新版文件复制完毕！"
 
 echo "正在提交变更..."
 git add . > /dev/null 2>&1
-git commit -m `date '+%Y%m%d%H%M%S'` > /dev/null 2>&1
+git commit --amend -m `date '+%Y%m%d%H%M%S'` > /dev/null 2>&1
 echo "变更提交完成！"
 
 echo "正在发布..."
-git push
+git push -f
 echo "新版本发布完成！"
 
 echo "正在清理dist文件夹..."
