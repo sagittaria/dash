@@ -113,6 +113,29 @@ export const asyncRouterMap = [
         hidden: true
       }
     ]
+  }, {
+    path: '/property',
+    component: Layout,
+    redirect: '/property/overview',
+    name: 'Property',
+    meta: {
+      title: 'Property',
+      icon: ''
+    },
+    children: [
+      {
+        path: 'overview',
+        component: () => import('@/views/property/overview'),
+        name: 'Overview',
+        meta: { title: 'Overview', icon: '' }
+      },
+      {
+        path: 'funds',
+        component: () => import('@/views/property/funds'),
+        name: 'Funds',
+        meta: { title: 'Funds', icon: '' }
+      }
+    ]
   },
 
   { path: '*', redirect: '/404', hidden: true }
